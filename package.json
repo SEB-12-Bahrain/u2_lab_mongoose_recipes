@@ -1,0 +1,17 @@
+{
+  "name": "u2_hw_ejs",
+  "version": "1.0.0",
+  "author": "Michael Lackey",
+  "license": "MIT",
+  "description": "In this deliverable, you're going to create a dynamic website for our fictional restaurant - 'The Green Byte Bistro.'  This lab is all about practically applying your skills and using EJS templates in an Express application.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --watch server.js"
+  },
+  "type": "commonjs",
+  "dependencies": {
+    "ejs": "^4.0.1",
+    "express": "^5.2.1"
+  }
+}
