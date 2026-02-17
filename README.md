@@ -121,8 +121,6 @@ const RESTAURANT = {
 
 6. ***Level-Up:*** Include conditional rendering to add the line "Yes we are open!" to the page if the restaurant `isOpen`, and "Sorry, we are closed." otherwise.
 
-<br>
-
 
 ### Exercise 2: Create a Nav Bar
 
@@ -193,8 +191,6 @@ Add your partial file to the top of the `<body>` in `home.ejs`
 2. In `menu.ejs`, Use a `forEach()` loop, to render each of the menu items and their details to the page. Include `name`, `price`, `rating` and `details` for each item.
 
 3. ***Level Up***: Using conditionals, refactor your code to render the items under three separate `<h2>` headers based on the category of the dish- `"Mains"` `"Desserts"` or `"Sides"`.
-
-<br>
 
 
 ### Exercise 3: Create a Separate Page for Menu Categories
