@@ -26,7 +26,7 @@ const getAllRecipes = async (req, res) => {
 const getRecipeById = async (req, res) => {
   try {
     const recipe = await Recipe.findById(req.params.id)
-    res.send(recipe)
+    res.render('./recipes/show.ejs', { recipe })
   } catch (error) {
     console.log(
       `An error has occurred while getting the recipe: ${error.message}`
