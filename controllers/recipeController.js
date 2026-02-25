@@ -39,7 +39,7 @@ const updateRecipeById = async (req, res) => {
     const recipe = await Recipe.findByIdAndUpdate(req.params.id, req.body, {
       returnDocument: 'after'
     })
-    res.send(recipe)
+    res.redirect(`/recipes/${recipe._id}`)
   } catch (error) {
     console.log(
       `An error has occurred while updating the recipe: ${error.message}`
