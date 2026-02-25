@@ -4,7 +4,7 @@ const User = require('../models/User')
 const createRecipe = async (req, res) => {
   try {
     const recipe = await Recipe.create(req.body)
-    res.send(`A new recipe has been added to your profile: ${recipe}`)
+    res.redirect(`/recipes/${recipe._id}`)
   } catch (error) {
     console.log(
       `An error has occurred while creating a recipe: ${error.message}`

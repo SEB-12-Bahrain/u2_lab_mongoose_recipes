@@ -3,6 +3,9 @@ const router = express.Router()
 const recipeController = require('../controllers/recipeController')
 
 router.post('/', recipeController.createRecipe)
+router.get('/new', (req, res) => {
+  res.render('./recipes/new.ejs')
+})
 router.get('/', recipeController.getAllRecipes)
 router.get('/:id', recipeController.getRecipeById)
 router.put('/:id', recipeController.updateRecipeById)
