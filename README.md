@@ -3064,18 +3064,10 @@ touch ./views/users/profile.ejs
 
 · · · · · · · · · · · · · · · · · · · ·
 
-Back in your `userController.js`, you need to make sure you populate the recipes field when you get your user from the database.
-
-Add `.populate('recipes')` to the end of the query:
+Back in your `userController.js`, replace the `res.send` with the following:
 
 ```js
-const user = await User.findById(req.params.id).populate('recipes')
-```
-
-Then, replace the `res.send` with the following:
-
-```js
-res.render('./users/profile.ejs', { user })
+res.render('./users/profile.ejs', { user: data })
 ```
 
 [📖 Back to Top](#-table-of-contents)
@@ -3159,7 +3151,7 @@ touch ./views/auth/confirm.ejs
 In your `authController.js` file, you need to replace the `res.send` in your `updatePassword` controller with:
 
 ```js
-res.render('./auth/confirm.ejs', { user })
+res.render('./auth/confirm.ejs')
 ```
 
 [📖 Back to Top](#-table-of-contents)
@@ -3169,6 +3161,14 @@ res.render('./auth/confirm.ejs', { user })
 ### All Recipes Page
 
 A list of all recipes in the app.
+
+First, create a `recipes` directory in `views`.
+
+```sh
+mkdir ./views/recipes
+```
+
+Then, create a file to show all recipes.
 
 ```sh
 touch ./views/recipes/all.ejs
