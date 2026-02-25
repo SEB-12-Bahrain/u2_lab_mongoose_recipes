@@ -50,7 +50,7 @@ const updateRecipeById = async (req, res) => {
 const deleteRecipeById = async (req, res) => {
   try {
     await Recipe.findByIdAndDelete(req.params.id)
-    res.send('The recipe has been deleted.')
+    res.render('./recipes/confirm.ejs')
   } catch (error) {
     console.log(
       `An error has occurred while deleting the recipe: ${error.message}`
