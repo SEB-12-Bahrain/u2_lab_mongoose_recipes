@@ -8,7 +8,7 @@ const path = require('path')
 const db = require('./db')
 const authRouter = require('./routes/authRouter')
 const userRouter = require('./routes/userRouter')
-// const recipeRouter = require('./routes/recipeRouter')
+const recipeRouter = require('./routes/recipeRouter')
 
 const PORT = process.env.PORT ? process.env.PORT : 3000
 
@@ -32,7 +32,7 @@ app.use(
 
 app.use('/auth', authRouter)
 app.use('/users', userRouter)
-// app.use('/recipes', recipeRouter)
+app.use('/recipes', recipeRouter)
 
 app.get('/', (req, res) => {
   res.send('Mongoose Recipes is open for business..')
