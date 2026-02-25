@@ -8,6 +8,7 @@ const session = require("express-session")
 const { MongoStore } = require("connect-mongo")
 const path = require("path")
 const authRouter = require("./routes/authRouter.js")
+const userRouter = require("./routes/userRouter.js")
 
 const dns = require("dns")
 dns.setServers(["8.8.8.8", "1.1.1.1"])
@@ -36,6 +37,7 @@ app.use(
 )
 
 app.use("/auth", authRouter)
+app.use("/users", userRouter)
 
 app.get("/", (req, res) => {
   res.send("Mongoose Recipes is waiting . . .")
