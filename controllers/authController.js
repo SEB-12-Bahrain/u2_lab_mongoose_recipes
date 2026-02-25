@@ -1,0 +1,87 @@
+const bcrypt = require('bcrypt')
+const User = require('../models/User')
+
+const registerUser = async (req, res) => {
+  try {
+    const exists = await User.exists({ email: req.body.email })
+    if (exists) return res.send('User already exists!')
+
+    if (req.body.password !== req.body.confirmPassword)
+      return res.send('Password and confirm password must match!')
+
+    const hashedPassword = await bcrypt.hash(req.body.password, 12)
+    req.body.password = hashedPassword
+
+    await User.create(req.body)
+    res.render('./auth/thanks.ejs')
+  } catch (error) {
+    console.log(`An error has occurred while signing up: ${error.message}`)
+  }
+}
+
+const signInUser = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email })
+    if (!user) return res.send('User does not exist. Please sign up.')
+
+    const validPassword = await bcrypt.compare(req.body.password, user.password)
+
+    if (!validPassword) return res.send('Password is incorrect.')
+
+    req.session.user = {
+      email: user.email,
+      _id: user._id
+    }
+
+    req.session.save(() => {
+      res.redirect(`/users/${user._id}`)
+    })
+  } catch (error) {
+    console.log(`An error has occurred while signing in: ${error.message}`)
+  }
+}
+
+const signOutUser = async (req, res) => {
+  try {
+    req.session.destroy(() => {
+      res.redirect('/')
+    })
+  } catch (error) {
+    console.log(`An error has occurred while singing out: ${error.message}`)
+  }
+}
+
+const updatePassword = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id)
+    if (!user) return res.send('User does not exist!')
+
+    const validPassword = await bcrypt.compare(
+      req.body.oldPassword,
+      user.password
+    )
+    if (!validPassword) return res.send('Password is incorrect!')
+
+    if (req.body.newPassword !== req.body.confirmPassword)
+      return res.send('Password and confirm password must match.')
+
+    const hashedPassword = await bcrypt.hash(req.body.newPassword, 12)
+
+    user.password = hashedPassword
+
+    await user.save()
+
+    res.render('./auth/confirm.ejs', { user })
+  } catch (error) {
+    console.log(
+      `An error has occurred while updating password: ${error.password}`
+    )
+  }
+}
+
+module.exports = {
+  registerUser,
+  signInUser,
+  signOutUser,
+  updatePassword
+}
