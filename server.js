@@ -1,4 +1,5 @@
 require('dotenv').config({ quiet: true })
+const middleware = require('./middleware')
 const express = require('express')
 const morgan = require('morgan')
 const methodOverride = require('method-override')
@@ -29,13 +30,14 @@ app.use(
     })
   })
 )
+app.use(middleware.passUserToView)
 
 app.use('/auth', authRouter)
 app.use('/users', userRouter)
 app.use('/recipes', recipeRouter)
 
 app.get('/', (req, res) => {
-  res.send('Mongoose Recipes is open for business..')
+  res.render('./index.ejs')
 })
 
 app.listen(PORT, () => {

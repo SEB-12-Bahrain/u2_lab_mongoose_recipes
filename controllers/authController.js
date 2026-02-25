@@ -13,7 +13,7 @@ const registerUser = async (req, res) => {
     req.body.password = hashedPassword
 
     await User.create(req.body)
-    res.send('Thank you for signing up.')
+    res.render('./auth/thanks.ejs')
   } catch (error) {
     console.log(`An error has occurred while signing up: ${error.message}`)
   }
@@ -34,7 +34,7 @@ const signInUser = async (req, res) => {
     }
 
     req.session.save(() => {
-      res.send(`Thank you for signing in, ${user.first}`)
+      res.redirect(`/users/${user._id}`)
     })
   } catch (error) {
     console.log(`An error has occurred while signing in: ${error.message}`)
@@ -71,7 +71,7 @@ const updatePassword = async (req, res) => {
 
     await user.save()
 
-    res.send('Your password has been successfully updated!')
+    res.render('./auth/confirm.ejs', { user })
   } catch (error) {
     console.log(
       `An error has occurred while updating password: ${error.password}`

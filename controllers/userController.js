@@ -14,7 +14,7 @@ const getUserById = async (req, res) => {
       recipes: recipes
     }
 
-    res.send(data)
+    res.render('./users/profile.ejs', { user: data })
   } catch (error) {
     console.log(`An error has occurred while fetching user: ${error.message}`)
   }
