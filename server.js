@@ -9,6 +9,8 @@ const session = require("express-session")
 const { MongoStore } = require("connect-mongo")
 const path = require("path")
 const db = require("./db")
+const middleware = require("./middleware")
+
 const authRouter = require("./routes/authRouter")
 const userRouter = require("./routes/userRouter.js")
 const recipeRouter = require("./routes/recipeRouter")
@@ -29,6 +31,8 @@ app.use(
   })
 )
 
+app.use(middleware.passUserToView)
+
 /*
 express.static sends the CSS file so the login page looks pretty.
 express.
@@ -41,12 +45,20 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, "public")))
 
 app.use("/auth", authRouter)
-app.use('/users', userRouter)
+app.use("/users", userRouter)
 app.use("/recipes", recipeRouter)
 
-//base rout
+// //base rout
+// app.get("/", (req, res) => {
+//   res.send("🧑‍🍳 Mongoose Recipes is waiting for orders . . . ")
+// })
+
 app.get("/", (req, res) => {
-  res.send("🧑‍🍳 Mongoose Recipes is waiting for orders . . . ")
+  res.render("index.ejs")
+})
+
+router.get("/sign-up", (req, res) => {
+  res.render("./auth/sign-up.ejs")
 })
 
 const PORT = process.env.PORT ? process.env.PORT : 3000
