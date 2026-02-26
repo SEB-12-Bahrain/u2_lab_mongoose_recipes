@@ -7,18 +7,10 @@
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
+    <%- include('../partials/header.ejs') %>
 
-<%- include('../partials/header.ejs') %>
+    <h2>Your recipe has been deleted!</h2>
 
-<h2>All Recipes</h2>
-<ul>
-  <% recipes.forEach(recipe => { %>
-    <li>
-      <a href="/recipes/<%= recipe._id %>"><%= recipe.title %></a>
-    </li>
-  <% }) %>
-</ul>
-
-<%- include('../partials/footer.ejs') %>
-</body>
+    <%- include('../partials/footer.ejs') %>
+  </body>
 </html>
