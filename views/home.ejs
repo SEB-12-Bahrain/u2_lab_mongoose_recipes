@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>Home</title>
+    <style>
+    body {
+      background-color: #eae3dc; 
+      text-align: center;
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+
+    h1 {
+      margin-top: 120px;
+      font-size: 50px;
+      color: #5a3e36;
+    }
+
+    p {
+      font-size: 20px;
+      margin-top: 20px;
+      color: #333;
+    }
+
+    .links {
+      margin-top: 40px;
+    }
+
+    .links a {
+      text-decoration: none;
+      color: #5a3e36;
+      margin: 15px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .links a:hover {
+      text-decoration: underline;
+    }
+
+    hr {
+      width: 60%;
+      margin-top: 40px;
+      border: 1px solid #b7a79c;
+    }
+
+  </style>
+
+</head>
+<body class="home-page">
+
+<h1>Welcome <%= user ? user.firstName : "Guest" %></h1>
+
+<% if (!user) { %>
+  <p>
+    <a href="/auth/sign-in">Sign In</a> |
+    <a href="/auth/sign-up">Sign Up</a>
+  </p>
+<% } else { %>
+  <p>
+    Logged in as <strong><%= user.firstName %></strong> |
+    <a href="/auth/logout">Logout</a>
+  </p>
+<% } %>
+
+<hr>
+</body>
+</html>
