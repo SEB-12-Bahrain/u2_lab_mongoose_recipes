@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Welcome</title>
+    <style>
+    body {
+      background-color: #eae3dc;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+
+    h1 {
+      margin-top: 120px;
+      font-size: 50px;
+      color: #5a3e36;
+    }
+
+    p {
+      font-size: 20px;
+      margin-top: 20px;
+      color: #333;
+    }
+
+    .links {
+      margin-top: 40px;
+    }
+
+    .links a {
+      text-decoration: none;
+      color: #5a3e36;
+      margin: 15px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+
+  </head>
+  <body class="welcome-page">
+    <h1>Welcome <%= user.firstName %> </h1>
+
+    <p>You have successfully logged in.</p>
+
+    <a href="/">Go to Home Page</a> |
+    <a href="/auth/logout">Logout</a>
+
+
+  </body>
+</html>
