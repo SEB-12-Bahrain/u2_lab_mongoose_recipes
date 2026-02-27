@@ -1,7 +1,6 @@
 const bcrypt = require("bcrypt")
 
 const User = require("../models/User.js")
-const { useSyncExternalStore } = require("react")
 
 const registerUser = async (req, res) => {
   try {
@@ -21,7 +20,7 @@ const registerUser = async (req, res) => {
       last: req.body.last,
       picture: req.body.picture,
     })
-    res.send("Thanks for signing up!")
+    res.render("./auth/thanks.ejs")
   } catch (error) {
     console.error("⚠️ An error has occurred registering a user!", error.message)
   }
@@ -44,7 +43,7 @@ const signInUser = async (req, res) => {
       _id: user._id,
     }
     req.session.save(() => {
-      res.send(`Thanks for signing in, ${user.first}!`)
+      res.redirect(`/users/${user._id}`)
     })
   } catch (error) {
     console.error("An error has occurred signing in a user", error.message)
@@ -65,26 +64,31 @@ const updatePassword = async (req, res) => {
   try {
     const user = await User.findById(req.params.id)
     if (!user) {
-      return res.send(" no user with that id exists!")
+      return res.status(404).send("no user with that id exists!")
+    }
+    if (!req.body.oldPassword || !req.body.newPassword) {
+      return res.status(400).send("Both old and new passwords are required")
     }
     const validPassword = await bcrypt.compare(
       req.body.oldPassword,
       user.password
     )
-    if (validPassword) {
-      return res.send("your old password is incorrect try again!")
+    if (!validPassword) {
+      return res.status(401).send("your old password is incorrect try again!")
     }
     if (req.body.newPassword !== req.body.confirmPassword) {
-      return res.send("password and confirm must match")
+      return res.status(400).send("password and confirm must match")
     }
     const hashedPassword = await bcrypt.hash(req.body.newPassword, 12)
     user.password = hashedPassword
     await user.save()
+    res.render("./auth/confirm.ejs")
   } catch (error) {
     console.error(
-      "An error occurred trying to update the password",
+      "An error occurred trying to update the password:",
       error.message
     )
+    res.status(500).send("Internal Server Error")
   }
 }
 
