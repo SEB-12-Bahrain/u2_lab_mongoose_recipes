@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Menu</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #e67e22;
+            --bg: #f8f9fa;
+            --text: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h2 {
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 40px;
+        }
+
+        ul {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 0;
+            list-style: none;
+        }
+
+        li {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            position: relative;
+            border-left: 5px solid var(--accent);
+        }
+
+        li:hover {
+            transform: translateY(-5px);
+        }
+
+        .price {
+            float: right;
+            font-weight: bold;
+            color: #27ae60;
+            font-size: 1.2rem;
+        }
+
+        .details {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 10px;
+            display: block;
+        }
+
+        .rating {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #f1c40f;
+        }
+
+        .star {
+            color: #f1c40f;
+            text-shadow: 0 0 5px rgba(241, 196, 15, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <%- include('./partials/nav') %>
+
+    <h1>Full Menu</h1>
+
+    <h2>Mains</h2>
+    <ul>
+        <% menu.forEach(item => { %>
+            <% if (item.category === 'mains') { %>
+                <li>
+                    <strong><%= item.name %></strong> - $<%= item.price %>
+                    <br>Rating: <%= item.rating %> | <%= item.details %>
+                </li>
+            <% } %>
+        <% }) %>
+    </ul>
+
+    <h2>Desserts</h2>
+    <ul>
+        <% menu.forEach(item => { %>
+            <% if (item.category === 'desserts') { %>
+                <li>
+                    <strong><%= item.name %></strong> - $<%= item.price %>
+                    <br>Rating: <%= item.rating %> | <%= item.details %>
+                </li>
+            <% } %>
+        <% }) %>
+    </ul>
+
+    <h2>Sides</h2>
+    <ul>
+        <% menu.forEach(item => { %>
+            <% if (item.category === 'sides') { %>
+                <li>
+                    <strong><%= item.name %></strong> - $<%= item.price %>
+                    <br>Rating: <%= item.rating %> | <%= item.details %>
+                </li>
+            <% } %>
+        <% }) %>
+    </ul>
+
+    <% menu.forEach((item) => { %>
+
+  <h3>
+    <%= item.name %>
+    <% if (item.rating === 5) { %> ⭐ <% } %>
+    - $<%= item.price %>
+  </h3>
+
+<% }) %>
+</body>
+</html>

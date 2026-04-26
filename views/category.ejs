@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>category</title>
+  <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 3px solid #e67e22;
+            display: inline-block;
+            width: 100%;
+            padding-bottom: 10px;
+        }
+
+        .category-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: white;
+            margin-bottom: 20px;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-right: 6px solid #e67e22;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .item-name {
+            font-size: 1.4rem;
+            color: #2c3e50;
+        }
+
+        .item-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #27ae60;
+        }
+
+        .details {
+            color: #666;
+            font-style: italic;
+        }
+
+        .rating-box {
+            margin-top: 15px;
+            background: #fffdf2;
+            padding: 5px 15px;
+            border-radius: 50px;
+            display: inline-block;
+            border: 1px solid #f1c40f;
+        }
+
+        .stars {
+            color: #f1c40f;
+            font-size: 1.2rem;
+        }
+
+        .favorite-tag {
+            background: #f1c40f;
+            color: white;
+            font-size: 0.7rem;
+            padding: 3px 10px;
+            border-radius: 5px;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+  <%- include('./partials/nav') %>
+
+    <h1><%= category %></h1>
+
+    <ul>
+        <% menuItems.forEach(item => { %>
+            <li>
+                <strong><%= item.name %></strong> - $<%= item.price.toFixed(2) %>
+                <p>Rating: <%= item.rating %> / 5</p>
+                <p><%= item.details %></p>
+            </li>
+        <% }) %>
+    </ul>
+
+    <% if (menuItems.length === 0) { %>
+        <p>No items found in this category.</p>
+    <li>
+    <strong>
+      <%= item.name %>
+      <%= item.rating === 5 ? "⭐" : "" %> </strong>
+    - $<%= item.price %>
+    <p>Rating: <%= item.rating %> / 5</p>
+    <p><%= item.details %></p>
+</li>
+<% } %>
+
+</body>
+</html>
