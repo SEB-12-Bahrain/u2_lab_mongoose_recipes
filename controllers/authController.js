@@ -22,15 +22,12 @@ const registerUser = async (req, res) => {
     res.render("./auth/thanks.ejs")
   } catch (error) {
     console.error("⚠️ An error has occurred registering a user!", error.message)
-    res.render("auth/sign-up.ejs", {
-      errorMessage: "⚠️ something went wrong. please try again",
-    })
   }
 }
 
 const signInUser = async (req, res) => {
   try {
-    const user = await user.findOne({ email: req.body.email })
+    const user = await User.findOne({ email: req.body.email })
     if (!user) {
       return res.send(
         "❌ No user has been registered with that email. Please sign up!"
@@ -81,7 +78,9 @@ const updatePassword = async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.newPassword, 12)
     user.password = hashedPassword
 
-    res.render("./auth/confirm.ejs")
+    await user.save()
+
+    res.render("./auth/confirm.ejs", { user })
   } catch (error) {
     console.error(
       "⚠️ An error has occurred updating a user's password!",

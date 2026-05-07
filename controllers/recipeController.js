@@ -1,4 +1,3 @@
-const User = require("../models/User.js")
 const Recipe = require("../models/Recipe.js")
 
 const createRecipe = async (req, res) => {
@@ -24,7 +23,7 @@ const getAllRecipes = async (req, res) => {
 
 const getRecipeById = async (req, res) => {
   try {
-    const recipe = await Recipe.findById(req.params.id)
+    const recipe = await Recipe.findById(req.params.id).populate("author")
     res.render("./recipes/show.ejs", { recipe })
   } catch (error) {
     console.error("⚠️ An error has occurred getting a recipe!", error.message)

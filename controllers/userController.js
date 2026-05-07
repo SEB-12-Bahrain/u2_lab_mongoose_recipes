@@ -1,4 +1,5 @@
 const User = require("../models/User.js")
+const Recipe = require("../models/Recipe.js")
 
 const getUserById = async (req, res) => {
   try {
